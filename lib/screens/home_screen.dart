@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:camera/camera.dart';
+import 'package:lottie/lottie.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../widgets/analysis_sheet.dart';
 import '../widgets/compare_sheet.dart';
@@ -61,6 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _captureAndAnalyze() async {
     if (_cameraController != null && _cameraController!.value.isInitialized) {
       try {
+        await _cameraController!.pausePreview();
         // Optional: Take picture here if needed for backend
         // final image = await _cameraController!.takePicture();
       } catch (e) {
@@ -82,7 +84,10 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  void _reset() {
+  void _reset() async {
+    if (_cameraController != null && _cameraController!.value.isInitialized) {
+      await _cameraController!.resumePreview();
+    }
     setState(() {
       _viewMode = ViewMode.camera;
       _isChatExpanded = false;
@@ -186,15 +191,22 @@ class _HomeScreenState extends State<HomeScreen> {
               // Stats Overlay
               Positioned(
                 bottom: 200,
-                left: 0,
-                right: 0,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    _buildCameraStat('869', 'Scan'),
-                    _buildCameraStat('135', 'Terjual'),
-                    _buildCameraStat('485', 'Disimpan'),
-                  ],
+                left: 24,
+                right: 24,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  decoration: BoxDecoration(
+                    color: Colors.lightBlue,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Expanded(child: _buildCameraStat('869', 'Total Riwayat Scan')),
+                      Expanded(child: _buildCameraStat('135', 'History Scan')),
+                      Expanded(child: _buildCameraStat('485', 'Disimpan')),
+                    ],
+                  ),
                 ).animate().fadeIn().slideY(begin: 0.5),
               ),
 
@@ -232,10 +244,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 80,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Colors.red, // Accent color for capture
+                            color: Colors.lightBlue, // Accent color for capture
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.red.withOpacity(0.3),
+                                color: Colors.lightBlue.withOpacity(0.3),
                                 blurRadius: 15,
                                 spreadRadius: 5,
                               ),
@@ -269,9 +281,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(LucideIcons.scanLine, color: Colors.white, size: 48)
-                          .animate(onPlay: (controller) => controller.repeat())
-                          .shimmer(duration: 1.seconds),
+                      Lottie.asset(
+                        'assets/Scanning.json',
+                        width: 250,
+                        height: 250,
+                        fit: BoxFit.contain,
+                      ),
                       const SizedBox(height: 16),
                       Text(
                         'Menganalisis Barang...',
@@ -280,7 +295,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
                         ),
-                      ),
+                      ).animate().fadeIn().shimmer(duration: 1.5.seconds),
                     ],
                   ),
                 ).animate().fadeIn(),
@@ -388,6 +403,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildCameraStat(String value, String label) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Text(
           value,
@@ -399,6 +415,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         Text(
           label,
+          textAlign: TextAlign.center,
           style: GoogleFonts.inter(
             color: Colors.white70,
             fontSize: 12,

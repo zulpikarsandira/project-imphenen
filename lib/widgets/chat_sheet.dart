@@ -76,73 +76,65 @@ class _ChatSheetState extends State<ChatSheet> {
       ),
       child: Column(
         children: [
-          // Drag Handle & Header
+          // Header
           Padding(
-            padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
-            child: Column(
+            padding: const EdgeInsets.fromLTRB(24, 24, 24, 16),
+            child: Row(
               children: [
-                Center(
-                  child: Container(
-                    width: 40,
-                    height: 4,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.circular(2),
+                if (widget.onBackPressed != null)
+                  IconButton(
+                    onPressed: widget.onBackPressed,
+                    icon: const Icon(LucideIcons.arrowLeft, color: Colors.black87),
+                    style: IconButton.styleFrom(
+                      backgroundColor: Colors.grey[100],
+                      shape: const CircleBorder(),
+                    ),
+                  ),
+                const SizedBox(width: 12),
+                Image.asset(
+                  'assets/icons/update.png',
+                  width: 32,
+                  height: 32,
+                  fit: BoxFit.contain,
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    'Asisten AI',
+                    style: GoogleFonts.inter(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
                     ),
                   ),
                 ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    if (widget.onBackPressed != null)
-                      IconButton(
-                        onPressed: widget.onBackPressed,
-                        icon: const Icon(LucideIcons.arrowLeft, color: Colors.black87),
-                        style: IconButton.styleFrom(
-                          backgroundColor: Colors.grey[100],
-                          shape: const CircleBorder(),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: Colors.green[50],
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 6,
+                        height: 6,
+                        decoration: const BoxDecoration(
+                          color: Colors.green,
+                          shape: BoxShape.circle,
                         ),
                       ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        'Asisten AI',
+                      const SizedBox(width: 6),
+                      Text(
+                        'Online',
                         style: GoogleFonts.inter(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
+                          fontSize: 12,
+                          color: Colors.green[700],
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: Colors.green[50],
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 6,
-                            height: 6,
-                            decoration: const BoxDecoration(
-                              color: Colors.green,
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                          const SizedBox(width: 6),
-                          Text(
-                            'Online',
-                            style: GoogleFonts.inter(
-                              fontSize: 12,
-                              color: Colors.green[700],
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -164,7 +156,7 @@ class _ChatSheetState extends State<ChatSheet> {
                     margin: const EdgeInsets.only(bottom: 16),
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     decoration: BoxDecoration(
-                      color: isUser ? Colors.black : Colors.grey[100],
+                      color: isUser ? Colors.lightBlue : Colors.grey[100],
                       borderRadius: BorderRadius.only(
                         topLeft: const Radius.circular(20),
                         topRight: const Radius.circular(20),
@@ -198,10 +190,10 @@ class _ChatSheetState extends State<ChatSheet> {
                     label: Text(prompt),
                     labelStyle: GoogleFonts.inter(
                       fontSize: 12,
-                      color: Colors.purple[700],
+                      color: Colors.white,
                       fontWeight: FontWeight.w600,
                     ),
-                    backgroundColor: Colors.purple[50],
+                    backgroundColor: Colors.lightBlue,
                     side: BorderSide.none,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
@@ -244,7 +236,7 @@ class _ChatSheetState extends State<ChatSheet> {
                   onPressed: () => _sendMessage(_textController.text),
                   icon: const Icon(LucideIcons.send),
                   style: IconButton.styleFrom(
-                    backgroundColor: Colors.black,
+                    backgroundColor: Colors.lightBlue,
                     foregroundColor: Colors.white,
                     padding: const EdgeInsets.all(12),
                   ),

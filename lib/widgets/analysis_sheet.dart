@@ -115,27 +115,75 @@ class AnalysisSheet extends StatelessWidget {
           const SizedBox(height: 32),
 
           // AI Analysis
-          Text(
-            'Analisis AI',
-            style: GoogleFonts.inter(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
-            ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                decoration: BoxDecoration(
+                  color: Colors.lightBlue,
+                  borderRadius: BorderRadius.circular(30),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.lightBlue.withOpacity(0.3),
+                      blurRadius: 10,
+                      spreadRadius: 2,
+                    ),
+                  ],
+                ),
+                child: Text(
+                  'Analisis AI',
+                  style: GoogleFonts.inter(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Container(
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                ),
+                child: Image.asset(
+                  'assets/icons/update.png',
+                  width: 48,
+                  height: 48,
+                  fit: BoxFit.contain,
+                  errorBuilder: (context, error, stackTrace) => Container(
+                    width: 48,
+                    height: 48,
+                    decoration: const BoxDecoration(
+                      color: Colors.lightBlue,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(LucideIcons.sparkles, color: Colors.white, size: 24),
+                  ),
+                ),
+              ).animate(onPlay: (c) => c.repeat(reverse: true)).scale(begin: const Offset(1, 1), end: const Offset(1.1, 1.1), duration: 2.seconds),
+            ],
           ),
           const SizedBox(height: 12),
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: const Color(0xFFF8F9FA),
+              color: Colors.lightBlue,
               borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.lightBlue.withOpacity(0.3),
+                  blurRadius: 10,
+                  spreadRadius: 2,
+                ),
+              ],
             ),
             child: Text(
               'Barang ini memiliki permintaan tinggi di kategori elektronik antik. Penjualan mingguan stabil, dan minat pembeli cenderung naik. Disarankan untuk menjual di marketplace khusus.',
               style: GoogleFonts.inter(
                 fontSize: 14,
                 height: 1.5,
-                color: Colors.black54,
+                color: Colors.white,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ).animate(delay: 400.ms).fadeIn(),
@@ -171,13 +219,14 @@ class AnalysisSheet extends StatelessWidget {
           ElevatedButton(
             onPressed: onAskAIPressed,
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.black,
+              backgroundColor: Colors.lightBlue,
               foregroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(vertical: 16),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),
-              elevation: 0,
+              elevation: 5,
+              shadowColor: Colors.lightBlue.withOpacity(0.5),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

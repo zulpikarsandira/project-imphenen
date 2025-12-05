@@ -118,11 +118,11 @@ class CompareSheet extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    _buildBar(0.4, 'assets/icons/tokopedia.png'),
-                    _buildBar(0.7, 'assets/icons/shopee.png'),
-                    _buildBar(0.5, 'assets/icons/lazada.png'),
-                    _buildBar(0.8, 'assets/icons/tiktok_shop.png'),
-                    _buildBar(0.3, 'assets/icons/facebook.png'),
+                    _buildBar(0.4, 'assets/icons/tokopedia.png', 'Tokopedia', '40%'),
+                    _buildBar(0.7, 'assets/icons/shopee.png', 'Shopee', '70%'),
+                    _buildBar(0.5, 'assets/icons/lazada.png', 'Lazada', '50%'),
+                    _buildBar(0.8, 'assets/icons/tiktok_shop.png', 'TikTok', '80%'),
+                    _buildBar(0.3, 'assets/icons/facebook.png', 'Facebook', '30%'),
                   ],
                 ),
               ],
@@ -151,10 +151,19 @@ class CompareSheet extends StatelessWidget {
     );
   }
 
-  Widget _buildBar(double heightFactor, String assetPath) {
+  Widget _buildBar(double heightFactor, String assetPath, String label, String percentage) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
+        Text(
+          percentage,
+          style: GoogleFonts.inter(
+            fontSize: 10,
+            fontWeight: FontWeight.bold,
+            color: Colors.grey[600],
+          ),
+        ),
+        const SizedBox(height: 4),
         Container(
           width: 8,
           height: 100 * heightFactor,
@@ -165,6 +174,14 @@ class CompareSheet extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Image.asset(assetPath, width: 20, height: 20),
+        const SizedBox(height: 4),
+        Text(
+          label,
+          style: GoogleFonts.inter(
+            fontSize: 10,
+            color: Colors.grey[600],
+          ),
+        ),
       ],
     );
   }
