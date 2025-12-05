@@ -24,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _isChatExpanded = false;
   CameraController? _cameraController;
   bool _isCameraInitialized = false;
+  double _sheetExtent = 0.55; // Initial sheet size
 
   @override
   void initState() {
@@ -167,9 +168,13 @@ class _HomeScreenState extends State<HomeScreen> {
             // Darken overlay when showing results
             if (showOverlay)
               Positioned.fill(
-                child: Container(color: Colors.black.withOpacity(0.3))
-                    .animate()
-                    .fadeIn(),
+                child: Container(
+                  color: Color.lerp(
+                    Colors.black.withOpacity(0.3),
+                    const Color(0xFF03A9F4), // Light Blue (match theme/buttons)
+                    ((_sheetExtent - 0.85) / (0.92 - 0.85)).clamp(0.0, 1.0),
+                  ),
+                ).animate().fadeIn(),
               ),
 
             // 2. Camera UI Overlay (Visible when NOT showing result)
@@ -305,6 +310,9 @@ class _HomeScreenState extends State<HomeScreen> {
             if (_viewMode == ViewMode.analysis)
               NotificationListener<DraggableScrollableNotification>(
                 onNotification: (notification) {
+                  setState(() {
+                    _sheetExtent = notification.extent;
+                  });
                   if (notification.extent < 0.25) {
                     _reset();
                   }

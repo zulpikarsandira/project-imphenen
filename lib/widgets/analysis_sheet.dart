@@ -131,36 +131,27 @@ class AnalysisSheet extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Text(
-                  'Analisis AI',
-                  style: GoogleFonts.inter(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 8),
-              Container(
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                ),
-                child: Image.asset(
-                  'assets/icons/update.png',
-                  width: 48,
-                  height: 48,
-                  fit: BoxFit.contain,
-                  errorBuilder: (context, error, stackTrace) => Container(
-                    width: 48,
-                    height: 48,
-                    decoration: const BoxDecoration(
-                      color: Colors.lightBlue,
-                      shape: BoxShape.circle,
+                child: Row(
+                  children: [
+                    Text(
+                      'Analisis',
+                      style: GoogleFonts.inter(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
-                    child: const Icon(LucideIcons.sparkles, color: Colors.white, size: 24),
-                  ),
+                    const SizedBox(width: 8),
+                    Image.asset(
+                      'assets/icons/update-removebg-preview.png',
+                      width: 24,
+                      height: 24,
+                      fit: BoxFit.contain,
+                      errorBuilder: (context, error, stackTrace) => const Icon(LucideIcons.sparkles, color: Colors.white, size: 20),
+                    ),
+                  ],
                 ),
-              ).animate(onPlay: (c) => c.repeat(reverse: true)).scale(begin: const Offset(1, 1), end: const Offset(1.1, 1.1), duration: 2.seconds),
+              ).animate(onPlay: (c) => c.repeat(reverse: true)).scale(begin: const Offset(1, 1), end: const Offset(1.05, 1.05), duration: 2.seconds),
             ],
           ),
           const SizedBox(height: 12),

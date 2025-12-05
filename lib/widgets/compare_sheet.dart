@@ -168,7 +168,7 @@ class CompareSheet extends StatelessWidget {
           width: 8,
           height: 100 * heightFactor,
           decoration: BoxDecoration(
-            color: Colors.blue,
+            color: heightFactor < 0.5 ? Colors.red : Colors.green,
             borderRadius: BorderRadius.circular(4),
           ),
         ),
